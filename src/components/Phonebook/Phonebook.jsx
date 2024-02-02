@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
@@ -38,7 +38,8 @@ const Phonebook = () => {
     });
   };
 
-  const deleteContact = id => setContacts(newContacts => newContacts.filter(item => item.id !== id));
+  const deleteContact = id =>
+    setContacts(newContacts => newContacts.filter(item => item.id !== id));
 
   const changeFitler = ({ target }) => setFilter(target.value);
 
@@ -62,8 +63,12 @@ const Phonebook = () => {
       <ContactForm onSubmit={addContact} />
       <h2>Contacts</h2>
       <p className={styles.text}>Find contact by name</p>
-      <input type="text" name="filter" onChange={changeFitler} className={styles.filter} />
-
+      <input
+        type="text"
+        name="filter"
+        onChange={changeFitler}
+        className={styles.filter}
+      />
       <ContactList items={phonebook} deleteContact={deleteContact} />
     </div>
   );

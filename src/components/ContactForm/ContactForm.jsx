@@ -1,4 +1,4 @@
-import { useState, Component } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './contact-form.module.css';
 
@@ -27,13 +27,27 @@ const ContactForm = ({ onSubmit }) => {
         <label htmlFor={nameId} className={styles.label}>
           Name
         </label>
-        <input value={state.name} type="text" name="name" id={nameId} onChange={handleChange} required />
+        <input
+          value={state.name}
+          type="text"
+          name="name"
+          id={nameId}
+          onChange={handleChange}
+          required
+        />
       </div>
       <div className={styles.formGroup}>
         <label htmlFor={numberId} className={styles.label}>
           Number
         </label>
-        <input value={state.number} type="tel" name="number" id={numberId} onChange={handleChange} required />
+        <input
+          value={state.number}
+          type="tel"
+          name="number"
+          id={numberId}
+          onChange={handleChange}
+          required
+        />
       </div>
       <button type="submit" className={styles.btn}>
         Add contact
