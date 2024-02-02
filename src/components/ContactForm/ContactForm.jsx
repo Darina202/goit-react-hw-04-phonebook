@@ -1,53 +1,45 @@
-import { Component } from 'react';
+import { useState, Component } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './contact-form.module.css';
 
-class ContactForm extends Component {
-  nameId = nanoid();
-  numberId = nanoid();
+const ContactForm = ({ onSubmit }) => {
+  const [state, setState] = useState({ name: '', number: '' });
+  const nameId = nanoid();
+  const numberId = nanoid();
 
-  state = {
-    name: '',
-    number: '',
-  };
-
-  handleChange = ({ target }) => {
+  const handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({
+    setState({
+      ...state,
       [name]: value,
     });
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit({ ...this.state });
-    this.setState({ name: '', number: '' });
+    onSubmit({ ...state });
+    setState({ name: '', number: '' });
   };
 
-  render() {
-    const { nameId, numberId, handleSubmit, handleChange } = this;
-    const { name, number } = this.state;
-
-    return (
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label htmlFor={nameId} className={styles.label}>
-            Name
-          </label>
-          <input value={name} type="text" name="name" id={nameId} onChange={handleChange} required />
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor={numberId} className={styles.label}>
-            Number
-          </label>
-          <input value={number} type="tel" name="number" id={numberId} onChange={handleChange} required />
-        </div>
-        <button type="submit" className={styles.btn}>
-          Add contact
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.formGroup}>
+        <label htmlFor={nameId} className={styles.label}>
+          Name
+        </label>
+        <input value={state.name} type="text" name="name" id={nameId} onChange={handleChange} required />
+      </div>
+      <div className={styles.formGroup}>
+        <label htmlFor={numberId} className={styles.label}>
+          Number
+        </label>
+        <input value={state.number} type="tel" name="number" id={numberId} onChange={handleChange} required />
+      </div>
+      <button type="submit" className={styles.btn}>
+        Add contact
+      </button>
+    </form>
+  );
+};
 
 export default ContactForm;
